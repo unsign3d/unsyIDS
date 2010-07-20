@@ -1,0 +1,13 @@
+UnsyIDS è un firewall applicativo per applicazioni web (forum blog ecc) basato sul filtro dell'input dell'utente attraverso delle regole.
+Questa applicazione protegge da attacchi XSS Sql injection CSRF RFI LFI directory traversal.
+
+Per installarlo basta semplcemente copiare in una cartella il sorgente e poi includere in un file di base (di solito si chiama core.php) il file index.php tipo
+
+[code]include_once './sentinel/index.php';[code]
+
+L'unsyIDS non ha bisogno di un database mysql e le regole sono presenti in un file php le regole si possono aggiungere o cambiare per avere una protezione più efficace e per adattarle al cms che si sta usando.
+Non rallenta visibilmente il caricamento della pagina essendo stato scritto con un occhio di riguardo alle prestazione.
+
+Attualmente unsyIDS è attivo su questo sito da qualche mese ed ha già bloccato diversi attacchi.
+
+Il progetto è opensource sotto licenza Creative Commons ed è hostato (per ragioni di sviluppo) su GIT
