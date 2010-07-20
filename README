@@ -3,7 +3,7 @@ Questa applicazione protegge da attacchi XSS Sql injection CSRF RFI LFI director
 
 Per installarlo basta semplcemente copiare in una cartella il sorgente e poi includere in un file di base (di solito si chiama core.php) il file index.php tipo
 
-[code]include_once './sentinel/index.php';[code]
+include_once './sentinel/index.php';
 
 L'unsyIDS non ha bisogno di un database mysql e le regole sono presenti in un file php le regole si possono aggiungere o cambiare per avere una protezione più efficace e per adattarle al cms che si sta usando.
 Non rallenta visibilmente il caricamento della pagina essendo stato scritto con un occhio di riguardo alle prestazione.
