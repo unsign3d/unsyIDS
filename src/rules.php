@@ -71,7 +71,12 @@ $rules = array(
 		//lfi
 		array ('type' => 'LFI',
 				 'comment' => 'prevent local file inclusions',
-				 'regexp' => '\.+\/+')
+				 'regexp' => '\.+\/+'),
+		//log poisoning
+		//rule from 0xSentinel by KinG-InFeT
+		array ('type' => 'Log poisoning',
+				 'comment' => 'prevent remote command execution in log',
+				 'regexp' => '/(<|%3C)\\?(php)?(.+)\\?>/i'),
 		//write here custom regules
 
 	  );//end of array
