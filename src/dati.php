@@ -16,5 +16,6 @@ $dati = array(
 		'filters' => 'all',
 		'email_admin' => '',
 		'alert' => 1,
-		'URI' => ''
+		'URI' => '',
+		'browser_whitelist' => 1
 		);

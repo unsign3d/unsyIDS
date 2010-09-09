@@ -80,4 +80,6 @@ $rules = array(
 		//write here custom regules
 
 	  );//end of array
+	  
+$browser_whitelist = array('Mozilla', 'KHTML', 'MSIE', 'AppleWebKit', 'Chrome', 'Chromium', 'Safari');
 ?>

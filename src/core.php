@@ -17,6 +17,13 @@ array_push($var, $_SERVER['HTTP_USER_AGENT']);
 
 //if var has no element I don't need to parse...
 if (count($var) == 0) { return 0; }
+if ($dati['browser_whitelist'] == 1){
+	$i= 0;
+	foreach ($browser_whitelist as $value){
+		(preg_match("/$value/msi", $_SERVER['HTTP_USER_AGENT'])) ? $i++ : '';
+	}
+	($i == 0) ? die('Your browser is not supported, get a standard browser') : '';
+}
 //if we have all filters I don't check what filter are on
 if (strcmp($dati['filters'], 'all') == 0){
  foreach($var as $value){
@@ -42,9 +49,11 @@ if (strcmp($dati['filters'], 'all') == 0){
 }//else
 }
 
+
+
 function found(){
 include 'dati.php';
-$date = date(DATE_RFC822);
+$date = gmdate(DATE_RFC822, getRealHour());
 $ip = getRealIp();
 
 if($dati['logging']==1){
@@ -78,7 +87,7 @@ Content-Transfer-Encoding: 8bit\n\n');
 }
  
  if ($dati['alert'] == 1){ 
-	echo '
+	?>
 		 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 		 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 		 <html xmlns="http://www.w3.org/1999/xhtml" lang="it"> 
@@ -104,10 +113,13 @@ Content-Transfer-Encoding: 8bit\n\n');
 		</head> 
 		<body> 
 		<h1>Lolz you fail</h1> 
-		<p>Attack found from '.$ip.'</p>
+		<p>Attack found from <?php echo $ip; ?></p>
+		<p>Your browser is: <?php echo htmlentities($_SERVER['HTTP_USER_AGENT']) ?></p>
 		<p>Powered by unsyIDS</p>
 		</body> 
-		</html> ';
+		</html>
+		
+		<?php
 		}
 		die();
 	}
@@ -119,4 +131,21 @@ Content-Transfer-Encoding: 8bit\n\n');
 	function getRealIp(){
 		return isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 	}
+	
+	function getRealHour(){
+		$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP); 
+		if (!is_resource($socket)) {
+			return FALSE;
+		} 
+	 
+		$result = socket_connect($socket, '193.204.114.105', intval(37));
+		$time_tmp = socket_read($socket, 32);
+		socket_close($socket);
+		$time = null;
+		for ($i=0;$i<4;$i++){
+			$time .= intval(ord(substr($time_tmp, $i , 1)));	
+		}
+	return $time;
+	}
+	
 ?>
